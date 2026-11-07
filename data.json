@@ -1,0 +1,1 @@
+{"items":{},"tomb":{},"tpls":{"seed-kp":{"id":"seed-kp","name":"Коммерческое предложение","type":"task","kind":"","match":"Подготовить КП","enabled":true,"tasks":[{"title":"Решение по КП","off":3,"base":"start","skipWe":false,"prio":2,"time":"","notes":""}],"upd":1794089939637}},"tplTomb":{},"notify":null,"nUpd":0,"needs":{},"needsTomb":{}}
