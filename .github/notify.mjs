@@ -29,11 +29,14 @@ async function sha(t) {
 }
 
 
+function hint(st) {
+  return st === 401 ? 'Токен DATA_TOKEN неверный или истёк.' : st === 403 ? 'У токена нет права Contents: Read and write на репозиторий данных.' : st === 404 ? 'Репозиторий ' + REPO + ' не найден: проверьте секрет DATA_REPO (формат логин/имя) и что токен выдан именно на этот репозиторий.' : '';
+}
 const H = { Authorization: 'Bearer ' + TOKEN, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
 async function get(file) {
   const r = await fetch(`${API}/repos/${REPO}/contents/${file}`, { headers: H });
   if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`GET ${file}: ${r.status}`);
+  if (!r.ok) throw new Error(`GET ${file}: ${r.status}. ${hint(r.status)}`);
   const j = await r.json();
   return { sha: j.sha, data: JSON.parse(Buffer.from(j.content, 'base64').toString('utf8')) };
 }
@@ -41,7 +44,7 @@ async function put(file, obj, sha) {
   const body = { message: 'planner notify', content: Buffer.from(JSON.stringify(obj)).toString('base64') };
   if (sha) body.sha = sha;
   const r = await fetch(`${API}/repos/${REPO}/contents/${file}`, { method: 'PUT', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  if (!r.ok) throw new Error(`PUT ${file}: ${r.status}`);
+  if (!r.ok) throw new Error(`PUT ${file}: ${r.status}. ${hint(r.status)}`);
 }
 
 let VAPID = null;
