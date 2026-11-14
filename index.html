@@ -514,7 +514,8 @@ body:not([data-view="cal"]) #fab{display:none}
 #toast{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
 /* шторки */
 dialog{width:100vw;max-width:100vw;margin:auto 0 0;border-radius:calc(26px*var(--rm)) calc(26px*var(--rm)) 0 0;max-height:calc(94dvh/var(--z))}
-#ordDlg{width:calc(100vw/var(--z));max-width:none}
+dialog,#ordDlg{width:calc(100vw/var(--z));max-width:none}
+#nfrm,#ifrm{display:flex;flex-direction:column;width:100%;min-height:0;max-height:calc(94dvh/var(--z))}
 #frm,.od-wrap{max-height:calc(94dvh/var(--z))}
 dialog[open]{animation:sheet .26s cubic-bezier(.2,.8,.2,1)}
 @keyframes sheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
